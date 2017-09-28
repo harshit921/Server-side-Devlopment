@@ -1,0 +1,27 @@
+<?php
+
+echo returnindex(20);
+
+function returnindex($num){
+	if(!is_numeric($num))
+		return "Error! Enter a number";
+
+	if($num ==0) return "can not be used";
+	if($num == 1) return 1;
+	$a=0;
+	$b=1;
+	$result =0;
+	
+	for($i=2; $i>0 ; $i++){
+			$result= $a+$b;
+			$a = $b;
+			$b = $result; 
+			$var = strlen( (string) $result);
+			echo '<br>'. $i."  ".$result;
+			if($num === $var)
+		 	break;
+		}
+	
+}
+?>
+
