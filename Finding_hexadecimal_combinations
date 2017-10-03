@@ -1,0 +1,25 @@
+<?php
+echo Hexaval(4);
+
+function factorial($num)  //Function To find the factorial of a given number
+{
+	if(is_numeric($num))
+	{
+		if(($num==1) || ($num==0)) return 1;  
+		return factorial($num-1)*$num;  //recursively finding the factorial of the given number.
+	}
+	else return -1; //will return -1 if the input is not an integer.
+}
+
+function Hexaval($n)  //Function to Find the combinations of hexadecimal numbers possible when given a ceratin amount of digits.
+{
+	if(!is_numeric($n) || $n<0)  //Checking if the given input is a number or not.
+		echo "Enter an Integer value";
+	else
+	{
+		if($n ===0  || $n===1 || $n===2 ) return 0;  // no possible outcome if the input digit is 0. 
+		return (factorial($n) - factorial($n-1));   // removing all the possible outcomes which starts from 0. 
+	}
+}
+
+?>
