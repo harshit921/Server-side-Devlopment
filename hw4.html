@@ -5,11 +5,69 @@
 </head>
 <body>
 	<form id="form1" method="POST" action="" >
-		<label>Choose a text file to count numbers</label>
-		<input type="file" name="text_file">
-		<button type="submit" name="button"  >Find All Numbers</button>
-
+		<label>Choose a text file to count numbers</label><hr>
+		<input type="file" name="text_file"><br><br>
+		<button name="button1"> Find All Numbers</button>
 	</form>
-
 </body>
 </html>
+
+<?php
+if(isset($_POST['button1'])) //executing the PHP file only when the submit button is pressed
+{
+	run();
+}
+
+function run()
+{
+	$filename = $_POST['text_file'];
+	if(!file_exists($filename)) exit("The file does not exist please choose a valid file"); //checking if file
+		checkTextFile($filename); 		//calling the checkfile function
+		numbersFromFile($filename); // calling  the displayNumber function to extract all numbers.
+}
+
+function checkTextFile($f)	//function to check if the file is text file or not
+{
+	if($f == null)
+	exit("Enter a valid String to check case ");
+	$pos = strpos($f , '.');
+	if(substr($f, $pos+1) != "txt" ) exit("Please Enter a text file");
+}
+
+function getNumbers($l)	//function to get only numbers from the given string.
+{
+	if($l == null) exit("the string given is empty.");
+	$array1 = explode(" ", $l);			//storing every element of string in array after a whitespace
+	for($i = 0 ; $i < count($array1) ; $i++)
+	{
+		if(is_numeric($array1[$i]))		// iterating to check if the string in array is an integer
+			echo  " $array1[$i] ";	// if an integer displaying the number.
+	}
+}
+function numbersFromFile($file)	//function to read from a file and extract all numbers from the file.
+{
+	if(!file_exists($file)) exit("The file does not exist please choose a valid file");
+	$fout = fopen($file, "r") or die("Unable to open file!");	//opening the file.
+	$line = fread($fout , filesize($file) );
+	if($line == null) exit("the text file does not contain anything");
+	getNumbers($line);
+	fclose($fout);			// closing the file
+
+}
+
+
+/*
+checking all the function cases->
+displayOnlyNumbers('abc.text');
+$nf = null;
+$displayOnlyNumbers($nf);
+checkTextFile($nf);
+getNumbers($nf);
+$nf = C:\xampp\htdocs\xyz.php;
+checkTextFile($nf);
+getNumbers("Hello this is amazing 21 which is happening here");
+
+
+*/
+
+?>
